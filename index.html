@@ -2,13 +2,15 @@
 <html>
 <head><title>TikTok Auth Callback</title></head>
 <body>
-<h2>TikTok Authorization Code</h2>
-<p>Copia este código en la terminal:</p>
-<pre id="code" style="font-size:1.4em;background:#eee;padding:12px"></pre>
+<p>Autorizando...</p>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code') || 'No code found in URL';
-  document.getElementById('code').textContent = code;
+  // Redirect to local server with the same query params
+  const params = window.location.search;
+  if (params.includes('code=')) {
+    window.location.href = 'http://localhost:8080/callback' + params;
+  } else {
+    document.body.innerHTML = '<h2>Error: no se recibió código de autorización.</h2><pre>' + params + '</pre>';
+  }
 </script>
 </body>
 </html>
